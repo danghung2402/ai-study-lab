@@ -80,4 +80,4 @@ Repository 的 Settings → Pages → Source 設為 **GitHub Actions**。推送 
 
 ## 作業繳交
 
-`SUBMISSION_ZH_TW.txt` 含專案簡介、Repository、網站、AGENTS.md 及延伸方式五項內容。先填寫繳交標題的學校、系級與姓名，再依課程平台要求提交。`HUONG_DAN_VI.txt` 提供越南文操作說明。
+`SUBMISSION_ZH_TW.txt` 含專案簡介、Repository、網站、AGENTS.md 及延伸方式五項內容。先填寫繳交標題的學校、學號、系級與姓名；主題可選填，學校與系級可用簡稱。再依課程平台要求提交。`HUONG_DAN_VI.txt` 提供越南文操作說明。

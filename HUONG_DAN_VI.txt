@@ -17,7 +17,7 @@ Trang 專案驗證 giải thích vấn đề dự án giải quyết, đối chi
 
 CÁCH NỘP
 1. Mở SUBMISSION_ZH_TW.txt.
-2. Điền trường, khoa/lớp và họ tên vào dòng tiêu đề. Không cần công khai mã số sinh viên trên website.
+2. Điền trường, mã sinh viên, khoa/năm học và họ tên vào dòng tiêu đề; chủ đề có thể ghi hoặc bỏ. Mã sinh viên cần có trong tiêu đề bài nộp trên hệ thống môn học, không cần đưa lên website công khai.
 3. Dán tiêu đề và nội dung năm mục lên hệ thống nộp bài của môn học.
 4. Kiểm tra hai đường dẫn GitHub và website trước khi gửi. Tôi chưa gửi bài thay bạn trên hệ thống của trường.
 Theo ảnh đề: hạn 16/11 lúc 23:59; hạn nộp muộn 17/11 lúc 16:00.

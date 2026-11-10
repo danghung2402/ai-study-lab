@@ -9,7 +9,7 @@
   "unchanged_files": 20,
   "scenario_before": 3,
   "scenario_after_test": 4,
-  "inputs_sha256": "6325c959aec01a823a4abfae0fae01b5edee77979a68bfc71b7b9c40dcee3925",
+  "inputs_sha256": "44415ce7787efc5f7955730fc52e613d2964e051bfbb37d3f4314d19d6535ada",
   "shared_files_sha256": {
     ".github/workflows/pages.yml": "155a51437d33fb288224300d12a7e25d6bc9759f1798fada5c542ada53951285",
     "AGENTS.md": "4d9bfdfdaac481608db38b9358037cfc4a97e35d3309954bd0a36575dd56bca0",
@@ -24,7 +24,7 @@
     "static/assets/lab.js": "379662589a7acde16546e036703286ae4e42f628819b8db2c16638f99a05be7a",
     "static/assets/styles.css": "004837066c170d80b68bd09e49ae6b384cdada89fa35f79c9092a51e77ea904e",
     "templates/about.html": "6d0d9fe327c65aca3d42ad9c352328786808d906cbc2ce69f1c9446b9b79d09d",
-    "templates/base.html": "7d75bb65307270a297e9fcdfaf495f27242906bdff0a74c48c2ab74ca4f35aaf",
+    "templates/base.html": "9b64a5d2c20265c490d7765c544e46ce174fee192195a43fb03d345ec83f7fcc",
     "templates/evidence.html": "3498c2bce253d851f65f8148dc61d2c4b70a2970b4f0b797019f386ffd64b665",
     "templates/home.html": "3f54082eb30f054f3ed572040aad76d52e964fa1159295db6a824725a6b3fb32",
     "templates/lab.html": "2af158be91d64a8a1a2839da56be2a637c74bd8b2d6ac8791d2297f2f79a970e",

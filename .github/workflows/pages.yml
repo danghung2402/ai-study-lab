@@ -19,8 +19,11 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/build.py
+      - run: python scripts/prove_extension.py --check
       - run: python scripts/check.py
       - run: node --check static/assets/app.js
+      - run: node --check static/assets/lab.js
+      - run: node scripts/test_brief.cjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

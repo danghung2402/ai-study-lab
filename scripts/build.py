@@ -10,6 +10,15 @@ import shutil
 from urllib.parse import quote, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
+STATIC_PAGES = {"index.html", "paths.html", "rules.html", "about.html", "lab.html", "evidence.html"}
+BRIEF_FIELDS = [
+    ("goal", "任務目標", "Mục tiêu", "你希望 AI 幫你完成什麼？"),
+    ("audience", "使用對象", "Đối tượng", "誰會閱讀或使用這份成果？"),
+    ("sources", "輸入與資料來源", "Tài liệu đầu vào", "指出檔案、頁碼、網址或已提供的內容。"),
+    ("deliverable", "交付成果", "Sản phẩm cần nhận", "說明格式、結構與數量，讓成果看得見。"),
+    ("constraints", "限制與規則", "Giới hạn và quy tắc", "例如語言、來源範圍與禁止編造。每點一行。"),
+    ("acceptance", "驗收標準", "Tiêu chí kiểm tra", "完成後，你會怎麼確認做對了？每點一行。"),
+]
 CATEGORIES = {
     "提示設計": ("prompt", "{ ? }", "把想法說清楚，是和 AI 合作的第一步。先練習交辦，再整理需要的背景。"),
     "代理工作流": ("agent", "[ ↗ ]", "理解模型與工具的分工，把做事方法寫進規則，並為每次成果安排驗收。"),
@@ -140,8 +149,47 @@ def path_sections(notes):
     return "".join(sections)
 
 
-def build(notes, output):
+def validate_scenarios(scenarios):
+    if not isinstance(scenarios, list) or not scenarios:
+        raise ValueError("scenarios.json must contain at least one scenario")
+    seen = set()
+    for scenario in scenarios:
+        required_text(scenario, ["id", "name", "vi", "description"], "scenario")
+        slug = scenario["id"]
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug) or slug in seen:
+            raise ValueError(f"Invalid or duplicate scenario id: {slug}")
+        seen.add(slug)
+        required_text(scenario.get("fields"), [field[0] for field in BRIEF_FIELDS], slug)
+        if set(scenario["fields"]) != {field[0] for field in BRIEF_FIELDS}:
+            raise ValueError(f"{slug}: expected exactly six brief fields")
+
+
+def lab_context(scenarios):
+    buttons = "".join(f'<button type="button" class="scenario-card" data-scenario="{s["id"]}" aria-pressed="{str(i == 0).lower()}"><span class="scenario-number">0{i+1}</span><strong>{escape(s["name"])}</strong><small lang="vi">{escape(s["vi"])}</small><span class="scenario-description">{escape(s["description"])}</span></button>' for i, s in enumerate(scenarios))
+    fields = []
+    for i, (key, label, vi, help_text) in enumerate(BRIEF_FIELDS, 1):
+        fields.append(f'<div class="brief-field"><label for="brief-{key}"><span class="field-number">0{i}</span><span>{label}<small lang="vi">{vi}</small></span><span class="required-mark">必填</span></label><p id="help-{key}">{help_text}</p><textarea id="brief-{key}" name="{key}" rows="{4 if key in ("constraints", "acceptance") else 3}" required aria-describedby="help-{key}">{escape(scenarios[0]["fields"][key])}</textarea></div>')
+    return {"scenario_buttons": buttons, "brief_fields": "".join(fields),
+            "scenario_json": json.dumps(scenarios, ensure_ascii=False).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")}
+
+
+def proof_context(proof, scenario_count):
+    passed = proof.get("status") == "passed"
+    return {
+        "proof_status": "✓ 可重現驗證已通過" if passed else "尚未執行延伸驗證",
+        "before_notes": proof.get("before_notes", "—"), "after_notes": proof.get("after_notes", "—"),
+        "before_pages": proof.get("before_pages", "—"), "after_pages": proof.get("after_pages", "—"),
+        "checked_links": proof.get("checked_links", "—"), "unchanged_files": proof.get("unchanged_files", "—"),
+        "proof_date": escape(proof.get("date", "尚未執行")), "scenario_count": scenario_count,
+        "proof_checks": list_items(proof.get("checks", ["請執行 scripts/prove_extension.py 產生實際驗證結果。"])),
+    }
+
+
+def build(notes, output, scenarios=None):
     validate(notes)
+    if scenarios is None:
+        scenarios = json.loads((ROOT / "content/scenarios.json").read_text(encoding="utf-8"))
+    validate_scenarios(scenarios)
     output = output.resolve()
     # Remove only generated output within this checkout; never a source directory.
     allowed = output == ROOT / "dist" or (ROOT / "verification").resolve() in output.parents
@@ -152,24 +200,31 @@ def build(notes, output):
     shutil.copytree(ROOT / "static", output)
     (output / "notes").mkdir()
     shutil.copy2(ROOT / "AGENTS.md", output / "AGENTS.md")
-    common = {"total": len(notes)}
+    proof_path = ROOT / "content/proof.json"
+    proof = json.loads(proof_path.read_text(encoding="utf-8")) if proof_path.exists() else {"status": "not-run"}
+    (output / "proof.json").write_text(json.dumps(proof, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    study_note = next((n for n in notes if n["id"] == "bilingual-study-brief"), notes[0])
+    common = {"total": len(notes), "scenario_count": len(scenarios), "study_note_url": f'notes/{study_note["id"]}.html'}
 
     def page(filename, body, title, description, page_name, root=""):
         context = {**common, "body": body, "title": escape(title), "description": escape(description), "page": page_name, "root": root}
-        for key in ["home", "paths", "rules", "about"]:
+        context["page_script"] = '<script defer src="assets/brief-core.js"></script><script defer src="assets/lab.js"></script>' if page_name == "lab" else ""
+        for key in ["home", "paths", "rules", "about", "lab"]:
             context[f"active_{key}"] = 'aria-current="page"' if page_name == key else ""
         (output / filename).write_text(render("base.html", context), encoding="utf-8")
 
     counts = Counter(n["category"] for n in notes)
     buttons = "".join(f'<button type="button" class="category-tab" data-category="{category}" aria-pressed="false">{category} <span>{counts[category]}</span></button>' for category in CATEGORIES)
     home = render("home.html", {**common, "cards": "".join(card(n, i) for i, n in enumerate(notes, 1)), "category_buttons": buttons})
-    page("index.html", home, "把 AI 知識，變成你的能力", "給 AI 初學者的繁體中文學習筆記：提示設計、代理工作流與網站實作。", "home")
+    page("index.html", home, "讀懂 AI 講義，也學會清楚交辦", "給在台留學生的跨語言 AI 學習筆記與交辦練習工具。", "home")
     page("paths.html", render("paths.html", {"paths": path_sections(notes)}), "學習路徑", "三條學習路徑，從清楚交辦到實際製作網站。", "paths")
     page("rules.html", render("rules.html", {"rules_text": escape((ROOT / "AGENTS.md").read_text(encoding="utf-8"))}), "專案規則", "閱讀本站 AGENTS.md，了解內容格式、設計與可延伸的維護方式。", "rules")
     page("about.html", render("about.html", common), "關於本站", "了解 AI 學習實驗室的目的、內容來源與資料儲存方式。", "about")
+    page("lab.html", render("lab.html", {**common, **lab_context(scenarios)}), "交辦練習室", "以中越提示填好六欄，產生有來源、限制與驗收標準的 AI 交辦稿。", "lab")
+    page("evidence.html", render("evidence.html", {**common, **proof_context(proof, len(scenarios))}), "專案驗證", "查看規則、內容與網站成果的對應，以及可重現的內容延伸驗證。", "evidence")
     for note in notes:
         page(f'notes/{note["id"]}.html', render("note.html", note_context(note, notes)), note["title"], note["summary"], "note", "../")
-    print(f"BUILD OK: {len(notes)} notes, {len(notes) + 4} HTML pages -> {output}")
+    print(f"BUILD OK: {len(notes)} notes, {len(notes) + len(STATIC_PAGES)} HTML pages -> {output}")
 
 
 if __name__ == "__main__":

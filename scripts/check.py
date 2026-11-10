@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import unquote, urlsplit
+from build import STATIC_PAGES
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -36,7 +37,8 @@ class Page(HTMLParser):
 
 def check(output, notes):
     files = sorted(output.rglob("*.html"))
-    assert len(files) == len(notes) + 4, "Unexpected HTML page count"
+    assert len(files) == len(notes) + len(STATIC_PAGES), "Unexpected HTML page count"
+    assert {p.name for p in files if p.parent == output} == STATIC_PAGES, "Unexpected static page list"
     pages = {}
     errors = []
     links = 0
@@ -76,6 +78,7 @@ def check(output, notes):
     if errors:
         raise SystemExit("CHECK FAILED:\n" + "\n".join(errors))
     print(f"CHECK OK: {len(files)} pages, {links} local links/assets, all 6 sections per note, published rules match source")
+    return {"pages": len(files), "links": links}
 
 
 if __name__ == "__main__":

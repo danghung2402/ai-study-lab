@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="查看規則、內容與網站成果的對應，以及可重現的內容延伸驗證。">
+  <meta name="theme-color" content="#173c32">
+  <title>專案驗證｜AI 學習實驗室</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/app.js"></script>
+  
+</head>
+<body data-page="evidence" data-total="10">
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="AI 學習實驗室首頁"><span class="brand-symbol" aria-hidden="true">a<span>i</span></span><span>AI 學習實驗室<small>LEARN. TRY. UNDERSTAND.</small></span></a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" type="button">選單 <span aria-hidden="true">☰</span></button>
+      <nav id="main-nav" class="main-nav" aria-label="主要導覽">
+        <a href="index.html#explore" >探索筆記</a>
+        <a href="lab.html" >交辦練習室</a>
+        <a href="paths.html" >學習路徑</a>
+        <a href="rules.html" >專案規則</a>
+        <a href="about.html" >關於本站</a>
+      </nav>
+      <a class="saved-link" href="index.html?saved=1#explore"><span aria-hidden="true">☆</span> 我的收藏 <span class="saved-count">0</span></a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1"><div class="inner-wrap evidence-wrap"><header class="page-intro"><p class="eyebrow">RULES → CONTENT → REAL OUTPUT</p><h1>規則有沒有用，<br>讓新增的成果來回答。</h1><p>這個專案留下了規則，也留下可重現的驗證。<br>從在台留學生的閱讀情境出發，讓學習筆記、交辦練習與維護方法互相連接。</p><div class="hero-actions"><a class="button primary" href="lab.html">試用交辦練習室 ↗</a><a class="text-link" href="AGENTS.md">閱讀完整規則 →</a></div></header><section class="evidence-purpose"><p class="eyebrow">A SPECIFIC PROBLEM</p><h2>讀得懂概念，卻不一定交辦得清楚。</h2><p>以中文修課的越南學生，可能同時需要理解術語、追查來源，以及把「請幫我整理」改成有格式與驗收條件的工作。本站用中文解說、中英越術語和六欄交辦練習，把這些需求串在一起。</p><div class="value-flow"><div><span>01</span><strong>讀一篇筆記</strong><p>概念、例子、練習、測驗與出處。</p></div><div><span>02</span><strong>寫一份交辦</strong><p>套用情境，明確描述資料與成果。</p></div><div><span>03</span><strong>接著再維護</strong><p>AI 讀規則，新增內容並驗證。</p></div></div></section><section class="proof-section" aria-labelledby="proof-title"><div class="section-heading"><div><p class="eyebrow">REPRODUCIBLE, NOT JUST DESCRIBED</p><h2 id="proof-title">實際重建一次內容延伸</h2></div><span class="proof-status">✓ 可重現驗證已通過</span></div><p class="proof-description">驗證程式先建立 9 篇筆記的版本，再只增加「留學生怎麼交辦跨語言筆記」這筆資料，建立 10 篇的版本。共用樣板、樣式、互動程式與建置器的內容雜湊保持相同。</p><div class="proof-metrics"><div><span>筆記內容</span><strong>9 <small>→</small> 10</strong><p>只新增一筆筆記資料</p></div><div><span>可瀏覽頁面</span><strong>15 <small>→</small> 16</strong><p>文章與入口自動產生</p></div><div><span>內部連結與資源</span><strong>386</strong><p>延伸後全部檢查通過</p></div><div><span>共用檔案</span><strong>20</strong><p>比對雜湊，確認未改動</p></div></div><div class="proof-details"><div><h3>這次實際查了什麼？</h3><ul><li>延伸前後都實際建置，檢查所有 HTML 與內部連結。</li><li>新增筆記出現在首頁與學習路徑，並產生完整六節文章。</li><li>20 個規則、樣板、樣式、互動及建置相關檔案的雜湊完全相同。</li><li>只加情境資料，隔離測試版從 3 個情境增加到 4 個；正式版仍保留 3 個。</li><li>錯誤資料被拒絕：重複文章 id、缺少核心概念、無效測驗答案。</li><li>驗證過程未修改正式筆記及情境資料。</li></ul><p class="proof-date">執行日期：2026-11-10。此為程式重現與人工操作紀錄，不宣稱另一個獨立 AI 已在全新對話完成測試。</p></div><div class="proof-command"><span class="code-caption">任何協作者都可以重新執行</span><pre><code>python scripts/prove_extension.py
+python scripts/build.py
+python scripts/check.py
+node scripts/test_brief.cjs</code></pre><a href="proof.json">查看原始驗證資料 ↗</a></div></div></section><section class="rule-mapping" aria-labelledby="mapping-title"><div class="section-heading"><div><p class="eyebrow">ONE RULE, ONE OBSERVABLE RESULT</p><h2 id="mapping-title">規則與網站一一對應</h2></div></div><div class="mapping-table-wrap"><table class="mapping-table"><thead><tr><th scope="col">AGENTS.md 的規則</th><th scope="col">網站上的成果</th><th scope="col">如何檢查</th></tr></thead><tbody><tr><th scope="row">目標讀者與跨語言理解</th><td>中文筆記、中英越術語、越南文欄位提示</td><td><a href="notes/bilingual-study-brief.html">閱讀對應筆記 →</a></td></tr><tr><th scope="row">文章固定六節</th><td>每篇都有概念、例子、練習、誤區、測驗和來源</td><td>建置器與結構檢查自動驗證</td></tr><tr><th scope="row">內容與共用樣板分離</th><td>新增內容後，首頁、分類、路徑和文章一起更新</td><td>9→10 篇的可重現延伸</td></tr><tr><th scope="row">情境用資料維護</th><td>3 個情境共用六欄檢查與輸出格式</td><td><a href="lab.html">切換情境操作 →</a></td></tr><tr><th scope="row">墨綠、暖白與萊姆綠共用視覺</th><td>筆記、練習室及本頁沿用設計變數</td><td>各頁載入同一份 styles.css</td></tr><tr><th scope="row">修改後以證據驗收</th><td>可開啟的網站、公開來源與驗證數據</td><td><a href="https://github.com/danghung2402/ai-study-lab/actions">查看 GitHub Actions ↗</a></td></tr></tbody></table></div></section><section class="next-prompt"><div><p class="eyebrow">READY FOR THE NEXT COLLABORATION</p><h2>下一次，只要交代新主題。</h2><p>規則不只是這次作業的附件，也能成為下次工作的起點。</p></div><div class="prompt-example"><pre><code>請先讀 AGENTS.md。
+新增「檢查 AI 回答來源」的筆記，
+並新增一個對應的交辦練習情境。
+只修改內容資料，沿用六節格式、
+六欄表單、共用樣式與驗收流程。
+完成後執行檢查並回報結果。</code></pre><a href="https://github.com/danghung2402/ai-study-lab/blob/main/docs/EXTENSION_DEMO.md">閱讀完整操作紀錄 ↗</a></div></section></div>
+</main>
+  <footer class="site-footer"><div class="footer-inner"><div><strong>AI 學習實驗室</strong><p>讓每一次學習，都留下可以接著做的起點。</p></div><div class="footer-links"><a href="evidence.html">專案驗證</a><a href="rules.html">專案規則</a><a href="AGENTS.md">AGENTS.md ↗</a><a href="https://github.com/danghung2402/ai-study-lab" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>跨語言學習 × 清楚交辦 × 持續延伸</span><span>2026 · Built with curiosity.</span></div></footer>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">文章與學習路徑可直接閱讀；搜尋、收藏、測驗與進度需要啟用 JavaScript。</p></noscript>
+</body>
+</html>

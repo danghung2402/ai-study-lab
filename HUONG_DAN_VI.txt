@@ -8,6 +8,12 @@ BÀI 9 — AI 學習實驗室
 - AGENTS.md: https://github.com/danghung2402/ai-study-lab/blob/main/AGENTS.md
 - Bài nộp tiếng Hoa: SUBMISSION_ZH_TW.txt
 - Ví dụ mở rộng có kiểm chứng: docs/EXTENSION_DEMO.md
+- Công cụ thực hành: https://danghung2402.github.io/ai-study-lab/lab.html
+- Trang minh chứng: https://danghung2402.github.io/ai-study-lab/evidence.html
+
+BẢN NÂNG CẤP
+Website tập trung vào sinh viên Việt đang học bằng tiếng Hoa: 10 bài học, thuật ngữ ba ngôn ngữ và công cụ tạo yêu cầu cho AI. Trong 交辦練習室, chọn một tình huống rồi sửa sáu mục: mục tiêu, người đọc, tài liệu, sản phẩm, giới hạn và cách kiểm tra. Bấm 產生我的交辦稿 để tạo, 複製交辦稿 để sao chép, 下載 .txt để tải. Đây là công cụ sắp xếp yêu cầu theo quy tắc; bạn tự đưa yêu cầu đó sang AI mình đang dùng.
+Trang 專案驗證 giải thích vấn đề dự án giải quyết, đối chiếu AGENTS.md với sản phẩm và cho xem kết quả kiểm tra có thể chạy lại. File proof.json không phải điểm chấm bài.
 
 CÁCH NỘP
 1. Mở SUBMISSION_ZH_TW.txt.
@@ -18,6 +24,13 @@ Theo ảnh đề: hạn 16/11 lúc 23:59; hạn nộp muộn 17/11 lúc 16:00.
 
 GIẢI THÍCH KHI ĐƯỢC HỎI
 AGENTS.md giống sổ tay làm việc của dự án: quy định mục tiêu, giao diện, dữ liệu, cách thêm bài và cách kiểm tra. Nội dung nằm trong content/notes.json. Python tạo trang từ mẫu dùng chung. Vì vậy thêm dữ liệu mới sẽ tự cập nhật trang chủ, tìm kiếm, phân loại và lộ trình học. Đã thử thêm bài thứ 9 mà không cần sửa mẫu trang.
+
+MINH CHỨNG HIỆN TẠI
+Đã dựng hai bản bằng cùng mã dùng chung: 9 và 10 bài, tương ứng 15 và 16 trang. Cả hai được kiểm tra; 386 liên kết/tài nguyên nội bộ của bản sau đều đạt. 20 tệp dùng chung giữ nguyên mã băm. Đã thử thêm tình huống thứ 4 trong bản kiểm tra riêng; bản chính giữ 3 tình huống. Có thể chạy lại bằng python scripts/prove_extension.py. Kết quả này hỗ trợ tiêu chí tái sử dụng và mở rộng; giáo viên vẫn quyết định điểm.
+
+GỢI Ý TRÌNH BÀY KHOẢNG MỘT PHÚT
+「我的專案叫 AI 學習實驗室，目標是幫助在台灣修課的越南學生，把理解中文講義接到清楚交辦給 AI。網站有十篇筆記和三個交辦情境。這裡示範選擇讀懂中文講義，填寫六欄，產生可以複製或下載的交辦稿。AGENTS.md 規定內容、表單、設計和驗收方式。之後新增文章或情境，只需加入資料，便能沿用相同結構。專案驗證頁提供規則對照與可重現結果，讓維護方式可以接著使用。」
+Bạn nên tự thao tác công cụ, đọc hiểu quy trình và diễn đạt lại theo cách của mình trước khi trình bày.
 
 CHẠY TRÊN MÁY
 Mở terminal trong thư mục dự án:

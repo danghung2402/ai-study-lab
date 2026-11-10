@@ -9,8 +9,9 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/styles.css">
   <script defer src="assets/app.js"></script>
+  
 </head>
-<body data-page="rules" data-total="9">
+<body data-page="rules" data-total="10">
   <a class="skip-link" href="#main">跳到主要內容</a>
   <header class="site-header">
     <div class="header-inner">
@@ -18,6 +19,7 @@
       <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" type="button">選單 <span aria-hidden="true">☰</span></button>
       <nav id="main-nav" class="main-nav" aria-label="主要導覽">
         <a href="index.html#explore" >探索筆記</a>
+        <a href="lab.html" >交辦練習室</a>
         <a href="paths.html" >學習路徑</a>
         <a href="rules.html" aria-current="page">專案規則</a>
         <a href="about.html" >關於本站</a>
@@ -34,10 +36,10 @@
 附上練習、測驗與來源。
 
 建置並檢查，確認首頁、搜尋
-和學習路徑都能找到新文章。</code></pre><a href="https://github.com/danghung2402/ai-study-lab/blob/main/docs/EXTENSION_DEMO.md">查看實際延伸驗證紀錄 ↗</a></div></section><section class="rule-source"><div class="section-heading"><h2>完整規則，公開可讀。</h2><a class="text-link" href="AGENTS.md">開啟原始檔 ↗</a></div><pre class="rule-preview"><code># AI 學習實驗室：給 AI 協作者的專案規則
+和學習路徑都能找到新文章。</code></pre><a href="https://github.com/danghung2402/ai-study-lab/blob/main/docs/EXTENSION_DEMO.md">查看實際延伸驗證紀錄 ↗</a></div></section><aside class="small-callout"><span aria-hidden="true">↗</span><p>規則是否真的能幫助延伸？專案驗證頁提供實際建置、來源雜湊比對與可重現命令，並將規則對應到可操作的網站成果。</p><a href="evidence.html">查看專案驗證 →</a></aside><section class="rule-source"><div class="section-heading"><h2>完整規則，公開可讀。</h2><a class="text-link" href="AGENTS.md">開啟原始檔 ↗</a></div><pre class="rule-preview"><code># AI 學習實驗室：給 AI 協作者的專案規則
 
 ## 1. 專案目的與完成定義
-建立一個可持續維護的繁體中文 AI 學習網站，協助初學者把課堂概念轉成可操作的練習。主要讀者為初學 AI 的大學生；附越南文術語協助跨語言理解。這不是線上 AI 聊天服務，不需要 API 金鑰，也不宣稱會呼叫模型。
+建立一個可持續維護的繁體中文 AI 學習網站，協助初學者把課堂概念轉成可操作的練習。主要讀者為在台灣以繁體中文修課的越南學生及 AI 初學者；以中文教材、越南文輔助與可帶走的交辦稿，處理跨語言閱讀和模糊交辦的問題。這不是線上 AI 聊天服務，不需要 API 金鑰，也不宣稱會呼叫模型。
 
 每次工作先讀本檔、`README.md`、`content/notes.json` 與相關樣板。沿用現有結構完成可瀏覽的結果。新增一篇筆記後，首頁、搜尋、分類、學習路徑、文章頁及相關筆記應自動收錄；所有原有連結和功能仍須可用。
 
@@ -49,12 +51,18 @@ AGENTS.md                   本專案的協作規則
 README.md                   對人類的使用、建置及發佈說明
 content/notes.json          筆記內容的唯一來源
 content/example-note.json   新增筆記的完整範例，不會自動發佈
+content/scenarios.json      練習室情境與六欄交辦範例的唯一來源
+content/proof.json          prove_extension.py 實際執行後產生的驗證數據
 templates/                 共用 HTML 樣板
 static/assets/styles.css   共用視覺樣式與響應式版面
 static/assets/app.js       篩選、搜尋、收藏、測驗、選單、完成進度
+static/assets/brief-core.js 交辦稿的純函式與欄位檢查，供瀏覽器與測試共用
+static/assets/lab.js        練習室表單、草稿、複製及文字下載
 static/.nojekyll            GitHub Pages 不使用 Jekyll
 scripts/build.py           驗證資料並產生靜態網站
 scripts/check.py           檢查產出、內部連結、資源、結構
+scripts/prove_extension.py  重現 9→10 篇的內容延伸並記錄真實結果
+scripts/test_brief.cjs      驗證交辦稿、空白欄位及純文字處理
 dist/                      自動產生；不可直接修改
 .github/workflows/pages.yml 自動建置與 GitHub Pages 部署
 docs/EXTENSION_DEMO.md      新增內容的操作與驗證紀錄
@@ -65,11 +73,11 @@ HUONG_DAN_VI.txt            給使用者的越南文操作說明
 檔案及 URL 一律使用小寫英文與連字號；筆記 URL 為 `notes/&lt;id&gt;.html`，`id` 必須符合 `[a-z0-9]+(-[a-z0-9]+)*` 且不可重複。內部連結與資源使用相對路徑，必須同時支援網域根目錄與 GitHub Pages 專案子目錄。使用 UTF-8、兩格 JSON 縮排；Python 四格縮排。產出不得包含原始課堂 PDF、登入資訊或個人學號。
 
 ## 3. 視覺與頁面結構
-主要語言為 `zh-Hant`。語氣直接、友善、具體；英文縮寫第一次出現時補中文。越南文僅用於術語對照，不把整篇混成三語。不得捏造學生個人經驗、測試結果、評分或老師背書。
+主要語言為 `zh-Hant`。語氣直接、友善、具體；英文縮寫第一次出現時補中文。越南文用於術語、練習室欄位提示及簡短導讀，不把整篇混成三語。不得捏造學生個人經驗、測試結果、評分或老師背書；不得把欄位完整度稱為 AI 品質評分或教師評分。
 
 視覺：暖白底 `#f5f5ee`、墨綠 `#173c32`、萊姆綠 `#d1ef72`、深字色 `#172d26`。沿用 CSS 變數與共用元件；不得為新增文章另建一套樣式。系統字體，圓角保持克制，保留清楚的留白、章節編號與細框線。文章內文最大寬度約 760px。
 
-共用頁首含網站標誌、探索筆記、學習路徑、專案規則與關於本站；共用頁尾含 GitHub 和規則連結。首頁依序呈現主題介紹、學習進度、分類搜尋、筆記列表。文章頁含麵包屑、分類與閱讀時間、學習目標、固定六節、收藏與完成按鈕、同類相關筆記。頁面只有一個 h1，標題層級不可跳級。
+共用頁首含網站標誌、探索筆記、交辦練習室、學習路徑、專案規則與關於本站；共用頁尾含 GitHub、專案驗證和規則連結。首頁依序呈現使用情境、實作入口、學習進度、分類搜尋、筆記列表。文章頁含麵包屑、分類與閱讀時間、學習目標、固定六節、收藏與完成按鈕、同類相關筆記。頁面只有一個 h1，標題層級不可跳級。
 
 ## 4. 新增筆記的資料規格
 複製 `content/example-note.json` 的物件至 `content/notes.json` 陣列。只編輯來源，不手動複製 HTML。必填欄位：
@@ -104,15 +112,21 @@ HUONG_DAN_VI.txt            給使用者的越南文操作說明
 
 使用語意元素、可見標籤、鍵盤可操作按鈕、明顯 focus、跳到主內容連結及狀態 `aria-live`。手機 375px、平板和桌面皆不得橫向溢出；程式碼允許容器內捲動。尊重 reduced-motion。不採集資料、不要求登入、不添加追蹤碼。
 
+交辦練習室使用六欄：`goal`、`audience`、`sources`、`deliverable`、`constraints`、`acceptance`。每個情境都必須有唯一 id、中文名稱、越南文名稱、用途說明及完整六欄範例。新增情境只修改 scenarios.json；按鈕與表單自動載入。所有欄位非空才能產生交辦稿。多行限制與驗收逐項列出，不夾帶隱藏指令。缺欄時以文字提示、aria-invalid 與焦點指出；不讓無效輸出被複製或下載。修改欄位後，舊輸出標示待重新產生並停用輸出按鈕。使用者文字一律透過 value/textContent 處理，不插入 innerHTML。
+
+草稿使用獨立 localStorage key，與收藏進度分開。只在瀏覽器內保存；儲存失敗時保留當次操作並提示。生成器是固定規則格式化工具，不宣稱執行了 AI 推論或自動查證。專案驗證頁只呈現實際產生的資料；未執行不得顯示通過，不保證任何分數。
+
 ## 7. 新增頁面與修改流程
 1. 釐清交辦的成品、限制與完成標準，檢查是否已有相關文章。
 2. 新增筆記：使用資料規格；新增獨立頁面：先在 `templates/` 建樣板，再於 `build.py` 的頁面清單登記，補導覽與說明。
 3. 只改必要來源；共用樣式和功能保持集中，不另寫文章專用 JS。
-4. 執行 `python scripts/build.py`，再執行 `python scripts/check.py` 及 `node --check static/assets/app.js`。
+4. 執行 `python scripts/build.py`、`python scripts/check.py`、`node --check static/assets/app.js`、`node --check static/assets/lab.js` 與 `node scripts/test_brief.cjs`。
 5. 以 `python -m http.server 8099 --directory dist` 預覽，操作搜尋、分類、收藏、測驗、完成按鈕、手機選單，並檢查文章與來源連結。
 6. 修改共用樣板或互動程式後做瀏覽器驗證。新增純內容則檢查新文章與既有文章、產生數量及內部連結。
 7. 若規格真的需要改變，同步更新本檔、建置器驗證、範例與 README，避免規則和成果不一致。
 8. 回報修改的檔案、檢查結果、尚未完成之處。未實際執行的測試不得寫成已通過。
+
+修改內容結構或宣稱可延伸後，執行 `python scripts/prove_extension.py` 再重新建置。它實際建立延伸前後的網站、檢查連結，並比較樣板、樣式、互動與建置器雜湊。驗證輸出僅放 verification 目錄，禁止刪改其他來源。產生的 proof.json 應保留實際數字、日期與檢查名稱，不能手改成成功。練習室情境擴充也要確認只加資料即可出現新情境。
 
 ## 8. 發佈與延伸交辦範例
 GitHub Actions 使用 `pages.yml` 建置並發佈 `dist`；不得只上傳畫面截圖。提交前執行上述檢查；提交來源，讓 Actions 重建網站。不要提交機密或新增追蹤工具。
@@ -123,7 +137,7 @@ GitHub Actions 使用 `pages.yml` 建置並發佈 `dist`；不得只上傳畫面
 應得到一個新內容物件和自動生成的新文章頁，且既有分類、路徑、文章數和相關連結一起更新；無須重新描述整個網站。完整操作例見 `docs/EXTENSION_DEMO.md`。
 </code></pre></section></div>
 </main>
-  <footer class="site-footer"><div class="footer-inner"><div><strong>AI 學習實驗室</strong><p>讓每一次學習，都留下可以接著做的起點。</p></div><div class="footer-links"><a href="rules.html">專案規則</a><a href="AGENTS.md">AGENTS.md ↗</a><a href="https://github.com/danghung2402/ai-study-lab" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>自主學習 × 可延伸的專案規則</span><span>2026 · Built with curiosity.</span></div></footer>
+  <footer class="site-footer"><div class="footer-inner"><div><strong>AI 學習實驗室</strong><p>讓每一次學習，都留下可以接著做的起點。</p></div><div class="footer-links"><a href="evidence.html">專案驗證</a><a href="rules.html">專案規則</a><a href="AGENTS.md">AGENTS.md ↗</a><a href="https://github.com/danghung2402/ai-study-lab" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>跨語言學習 × 清楚交辦 × 持續延伸</span><span>2026 · Built with curiosity.</span></div></footer>
   <div class="toast" role="status" aria-live="polite"></div>
   <noscript><p class="noscript">文章與學習路徑可直接閱讀；搜尋、收藏、測驗與進度需要啟用 JavaScript。</p></noscript>
 </body>

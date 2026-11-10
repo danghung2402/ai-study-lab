@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{description}}">
+  <meta name="theme-color" content="#173c32">
+  <title>{{title}}｜AI 學習實驗室</title>
+  <link rel="icon" href="{{root}}assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{{root}}assets/styles.css">
+  <script defer src="{{root}}assets/app.js"></script>
+</head>
+<body data-page="{{page}}" data-total="{{total}}">
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{{root}}index.html" aria-label="AI 學習實驗室首頁"><span class="brand-symbol" aria-hidden="true">a<span>i</span></span><span>AI 學習實驗室<small>LEARN. TRY. UNDERSTAND.</small></span></a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" type="button">選單 <span aria-hidden="true">☰</span></button>
+      <nav id="main-nav" class="main-nav" aria-label="主要導覽">
+        <a href="{{root}}index.html#explore" {{active_home}}>探索筆記</a>
+        <a href="{{root}}paths.html" {{active_paths}}>學習路徑</a>
+        <a href="{{root}}rules.html" {{active_rules}}>專案規則</a>
+        <a href="{{root}}about.html" {{active_about}}>關於本站</a>
+      </nav>
+      <a class="saved-link" href="{{root}}index.html?saved=1#explore"><span aria-hidden="true">☆</span> 我的收藏 <span class="saved-count">0</span></a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">{{body}}</main>
+  <footer class="site-footer"><div class="footer-inner"><div><strong>AI 學習實驗室</strong><p>讓每一次學習，都留下可以接著做的起點。</p></div><div class="footer-links"><a href="{{root}}rules.html">專案規則</a><a href="{{root}}AGENTS.md">AGENTS.md ↗</a><a href="https://github.com/danghung2402/ai-study-lab" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>自主學習 × 可延伸的專案規則</span><span>2026 · Built with curiosity.</span></div></footer>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">文章與學習路徑可直接閱讀；搜尋、收藏、測驗與進度需要啟用 JavaScript。</p></noscript>
+</body>
+</html>

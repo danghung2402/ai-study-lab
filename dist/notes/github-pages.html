@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="分清楚程式碼倉庫與網站網址，讓作品真的能被打開。">
+  <meta name="theme-color" content="#173c32">
+  <title>把網站放上 GitHub Pages｜AI 學習實驗室</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script defer src="../assets/app.js"></script>
+</head>
+<body data-page="note" data-total="9">
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../index.html" aria-label="AI 學習實驗室首頁"><span class="brand-symbol" aria-hidden="true">a<span>i</span></span><span>AI 學習實驗室<small>LEARN. TRY. UNDERSTAND.</small></span></a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav" type="button">選單 <span aria-hidden="true">☰</span></button>
+      <nav id="main-nav" class="main-nav" aria-label="主要導覽">
+        <a href="../index.html#explore" >探索筆記</a>
+        <a href="../paths.html" >學習路徑</a>
+        <a href="../rules.html" >專案規則</a>
+        <a href="../about.html" >關於本站</a>
+      </nav>
+      <a class="saved-link" href="../index.html?saved=1#explore"><span aria-hidden="true">☆</span> 我的收藏 <span class="saved-count">0</span></a>
+    </div>
+  </header>
+  <main id="main" tabindex="-1"><div class="article-wrap"><nav class="breadcrumb" aria-label="麵包屑"><a href="../index.html">首頁</a><span aria-hidden="true">/</span><a href="../index.html?category=%E7%B6%B2%E7%AB%99%E5%AF%A6%E4%BD%9C#explore">網站實作</a><span aria-hidden="true">/</span><span>學習筆記</span></nav><div class="article-layout"><article class="note-article" data-note-id="github-pages"><header class="article-header"><div class="article-meta"><span class="category-label web">網站實作</span><span>實作</span><span>7 分鐘閱讀</span></div><h1>把網站放上 GitHub Pages</h1><p class="article-summary">分清楚程式碼倉庫與網站網址，讓作品真的能被打開。</p><div class="article-toolbar"><span>更新於 2026-11-10</span><button type="button" class="bookmark-button" data-bookmark="github-pages" aria-pressed="false">☆ 收藏筆記</button></div></header><div class="goals-box"><p class="eyebrow">AFTER THIS NOTE</p><h2>讀完，你可以…</h2><ul><li>區分 Repository 連結與網站連結</li><li>在部署後實際檢查首頁與文章網址</li></ul></div><section id="concept" class="note-section"><h2><span>01</span>核心概念</h2><p>GitHub Repository 是儲存原始碼的地方；GitHub Pages 則可以發佈靜態網站。交作業時兩種連結都應提供，讓讀者既能看到成果，也能查看專案規則。</p><p>本站使用 GitHub Actions 建置，將產生的 dist 目錄發佈。網站可能位於帳號網域下的一個專案路徑，因此內部連結採相對路徑，避免開首頁正常、進文章卻找不到樣式的情況。</p></section><section id="example" class="note-section"><h2><span>02</span>具體範例</h2><h3>兩個連結，各有用途</h3><p>以本站的公開位置為例。實際部署是否成功，需查看 Actions 結果並開啟網站確認。</p><div class="code-block"><div class="code-bar"><span>EXAMPLE</span><button type="button" class="copy-code">複製範例</button></div><pre><code>原始碼：
+https://github.com/danghung2402/ai-study-lab
+
+網站：
+https://danghung2402.github.io/ai-study-lab/
+
+本機建置：
+python scripts/build.py
+python scripts/check.py</code></pre></div></section><section id="practice" class="note-section"><h2><span>03</span>動手練習</h2><ol class="practice-list"><li>把完整專案放入 Repository，確認根目錄有 AGENTS.md 與 README.md。</li><li>在 Repository 的 Pages 設定中選擇 GitHub Actions 作為發佈來源。</li><li>推送 main 分支後，在 Actions 查看建置與部署是否成功。</li><li>開啟網站網址，依序檢查首頁、一篇文章與專案規則頁。</li><li>把 Repository 和網站的完整網址分別貼進繳交內容。</li></ol></section><section id="pitfalls" class="note-section"><h2><span>04</span>常見誤區</h2><ul class="pitfalls-list"><li>只提供 GitHub 原始碼頁：另外提供可直接瀏覽的網站網址。</li><li>在專案網站使用 /assets 絕對路徑：改用可適應專案子目錄的相對路徑。</li><li>把推送成功視為網站已上線：查看部署結果並開啟網站驗證。</li></ul></section><section id="quiz" class="note-section"><h2><span>05</span>自我檢核</h2><div class="quiz-box" data-answer="2" data-explanation="公開部署的網站網址才能讓其他人直接開啟成品；本機路徑不能代替網站網址。"><p class="quiz-label">想一想，再選一個答案。</p><fieldset><legend>老師要直接瀏覽成果，應使用哪種連結？</legend><label class="quiz-option"><input type="radio" name="quiz-github-pages" value="0"><span>電腦裡的 C 槽路徑</span></label><label class="quiz-option"><input type="radio" name="quiz-github-pages" value="1"><span>只有程式碼倉庫的設定頁</span></label><label class="quiz-option"><input type="radio" name="quiz-github-pages" value="2"><span>已部署的 GitHub Pages 網站網址</span></label></fieldset><button type="button" class="button primary check-answer">確認答案 <span aria-hidden="true">→</span></button><p class="quiz-feedback" role="status" aria-live="polite"></p></div></section><section id="sources" class="note-section sources-section"><h2><span>06</span>參考來源</h2><ul><li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" target="_blank" rel="noopener noreferrer">GitHub Docs：設定 GitHub Pages 發佈來源 ↗</a></li></ul></section><aside class="glossary-box" aria-label="術語對照"><h2>換個語言，也能懂<span>中文 / English / Tiếng Việt</span></h2><dl><div><dt>程式碼倉庫</dt><dd lang="en">Repository</dd><dd lang="vi">Kho mã nguồn</dd></div><div><dt>部署</dt><dd lang="en">Deployment</dd><dd lang="vi">Triển khai</dd></div></dl></aside><div class="complete-box"><div><strong>把這一小步，記下來。</strong><p>完成練習後，為自己標記進度。</p></div><button type="button" class="button primary" data-complete="github-pages" aria-pressed="false">標記為已完成 <span aria-hidden="true">✓</span></button></div></article><aside class="article-sidebar"><p class="eyebrow">IN THIS NOTE</p><nav aria-label="本篇目錄"><a href="#concept">01　核心概念</a><a href="#example">02　具體範例</a><a href="#practice">03　動手練習</a><a href="#pitfalls">04　常見誤區</a><a href="#quiz">05　自我檢核</a><a href="#sources">06　參考來源</a></nav><div class="sidebar-tip"><span aria-hidden="true">✳</span><strong>試著用自己的話<br>再說一次。</strong><p>說得出來，才能更清楚自己理解到哪裡。</p></div><a class="text-link" href="../paths.html">看看完整學習路徑 →</a></aside></div><section class="related-section" aria-labelledby="related-title"><div class="section-heading"><div><p class="eyebrow">KEEP EXPLORING</p><h2 id="related-title">接著讀這些</h2></div><a href="../index.html#explore" class="text-link">全部筆記 →</a></div><div class="notes-grid"><article class="note-card web" data-card data-id="html-css-js" data-category="網站實作" data-search="一張網頁，三種分工 從一個收藏按鈕理解 HTML、CSS、JavaScript 各自負責什麼。 HTML CSS JavaScript">
+<div class="card-top" aria-hidden="true"><span class="card-number">07</span><span class="card-drawing">&lt;/&gt;</span></div>
+<button type="button" class="card-bookmark" data-bookmark="html-css-js" data-title="一張網頁，三種分工" aria-label="收藏：一張網頁，三種分工" aria-pressed="false">☆</button>
+<div class="card-body"><div class="card-meta"><span class="category-label web">網站實作</span><span>5 分鐘 · 入門</span></div><h3><a href="../notes/html-css-js.html">一張網頁，三種分工</a></h3><p>從一個收藏按鈕理解 HTML、CSS、JavaScript 各自負責什麼。</p><div class="card-footer"><div class="card-tags"><span>#HTML</span><span>#CSS</span></div><span class="read-arrow" aria-hidden="true">↗</span></div></div><div class="card-status" hidden></div></article><article class="note-card web" data-card data-id="accessible-web" data-category="網站實作" data-search="讓網站在手機與鍵盤上都好用 從標籤、焦點與窄螢幕檢查開始，改善每個人的閱讀體驗。 無障礙 手機 鍵盤">
+<div class="card-top" aria-hidden="true"><span class="card-number">09</span><span class="card-drawing">&lt;/&gt;</span></div>
+<button type="button" class="card-bookmark" data-bookmark="accessible-web" data-title="讓網站在手機與鍵盤上都好用" aria-label="收藏：讓網站在手機與鍵盤上都好用" aria-pressed="false">☆</button>
+<div class="card-body"><div class="card-meta"><span class="category-label web">網站實作</span><span>6 分鐘 · 實作</span></div><h3><a href="../notes/accessible-web.html">讓網站在手機與鍵盤上都好用</a></h3><p>從標籤、焦點與窄螢幕檢查開始，改善每個人的閱讀體驗。</p><div class="card-footer"><div class="card-tags"><span>#無障礙</span><span>#手機</span></div><span class="read-arrow" aria-hidden="true">↗</span></div></div><div class="card-status" hidden></div></article></div></section></div>
+</main>
+  <footer class="site-footer"><div class="footer-inner"><div><strong>AI 學習實驗室</strong><p>讓每一次學習，都留下可以接著做的起點。</p></div><div class="footer-links"><a href="../rules.html">專案規則</a><a href="../AGENTS.md">AGENTS.md ↗</a><a href="https://github.com/danghung2402/ai-study-lab" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></div><div class="footer-bottom"><span>自主學習 × 可延伸的專案規則</span><span>2026 · Built with curiosity.</span></div></footer>
+  <div class="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">文章與學習路徑可直接閱讀；搜尋、收藏、測驗與進度需要啟用 JavaScript。</p></noscript>
+</body>
+</html>
